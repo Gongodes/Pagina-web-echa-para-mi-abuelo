@@ -3,60 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Formal Email Transformer</title>
+    <title>Email Formalizer & Sender</title>
+
     <!-- Bootstrap CSS -->
     <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
+
     <style>
         body {
-            padding-top: 4.5rem; /* Adjust if using a fixed navbar */
+            padding-top: 1rem; /* Add some padding at the top */
+            background-color: #f8f9fa; /* Light gray background */
         }
-        .container {
-            max-width: 720px;
+        .container.main-content { /* Specific class for main form container */
+            max-width: 800px; /* Slightly wider container */
+            background-color: #ffffff; /* White background for the form container */
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Subtle shadow */
+            margin-top: 2rem; /* Margin from navbar */
         }
-        .alert-fixed-top {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1050; /* Ensure it's above other content */
-            margin: 1rem; /* Add some margin */
+        .alert-container {
+            position: fixed; /* Fixed position for alerts */
+            top: 5rem; /* Distance from top, below a potential navbar */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust centering */
+            z-index: 1055; /* Ensure alerts are on top */
+            width: auto; /* Auto width based on content */
+            min-width: 400px; /* Minimum width for alerts */
+            max-width: 90%;
+        }
+        .navbar-brand-custom {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .textarea-custom {
+            min-height: 150px; /* Ensure textarea is reasonably tall */
+        }
+        footer {
+            margin-top: 3rem;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Email Formalizer</a>
+            <a class="navbar-brand navbar-brand-custom" th:href="@{/}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-envelope-check-fill me-2" viewBox="0 0 16 16">
+                  <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                  <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/>
+                </svg>
+                Email Formalizer Pro
+            </a>
         </div>
     </nav>
 
-    <main class="container">
-        <div class="py-5 text-center">
-            <h2>Transform Your Email</h2>
-            <p class="lead">Enter your informal email content below. We'll help you make it more formal and then send it to the configured recipient.</p>
-        </div>
-
-        <!-- Message Area -->
-        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show alert-fixed-top" role="alert">
-            <span th:text="${successMessage}"></span>
+    <div class="alert-container">
+        <!-- Success Message -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show shadow-lg" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+              <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </symbol>
+            </svg>
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            <strong th:text="${successMessage}"></strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show alert-fixed-top" role="alert">
-            <span th:text="${errorMessage}"></span>
+        <!-- Error Message -->
+        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show shadow-lg" role="alert">
+             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                   <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </symbol>
+             </svg>
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <strong th:text="${errorMessage}"></strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+    </div>
 
+    <main class="container main-content">
+        <div class="py-3 text-center">
+            <h2>Formalize & Send Your Email</h2>
+            <p class="lead">Enter your email content below. We'll transform it into a more formal version and attempt to send it to <strong class="text-primary" th:text="${@environment.getProperty('email.default.recipient')}"></strong> using the sender email <strong class="text-primary" th:text="${@environment.getProperty('spring.mail.username')}"></strong>.</p>
+            <p class="text-muted small">(Please ensure sender credentials are correctly configured in the application properties)</p>
+        </div>
 
-        <form th:action="@{/ui/email/send}" method="post">
-            <div class="mb-3">
-                <label for="emailContent" class="form-label">Email Content:</label>
-                <textarea class.="form-control" id="emailContent" name="emailContent" rows="10" required th:text="${lastContent} ?: ''"></textarea>
+        <form th:action="@{/send-email}" method="post" class="needs-validation" novalidate>
+            <div class="mb-4">
+                <label for="emailContent" class="form-label fs-5"><strong>Email Content:</strong></label>
+                <textarea class="form-control textarea-custom" id="emailContent" name="emailContent" rows="10" required th:text="${lastContent} ?: ''" placeholder="Type or paste your informal email text here..."></textarea>
+                <div class="invalid-feedback">
+                    Email content cannot be empty.
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Transform and Send</button>
+            <hr class="my-4">
+            <button type="submit" class="w-100 btn btn-primary btn-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-send-check-fill me-2" viewBox="0 0 16 16">
+                  <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                  <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/>
+                </svg>
+                Transform, Formalize & Send Email
+            </button>
         </form>
+
+        <footer class="my-4 pt-4 text-muted text-center text-small">
+            <p class="mb-1">&copy; 2024 Email Formalizer Pro. All rights reserved.</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </footer>
     </main>
 
-    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <!-- Bootstrap JS Bundle (includes Popper for components like dismissible alerts) -->
     <script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+    <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+      'use strict'
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+    </script>
 </body>
 </html>

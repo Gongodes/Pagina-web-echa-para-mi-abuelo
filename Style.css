@@ -1,0 +1,20 @@
+.main-header{
+
+
+	background-blend-mode: multiply;
+	color: yellow;
+	text-align: center;
+
+}
+
+.subti{
+text-align: center;
+color: yellow;
+
+}
+
+
+html{
+	background-image: url(21omxpw-768x480.jpg);
+	background-size: cover;
+}

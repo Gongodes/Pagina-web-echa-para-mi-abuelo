@@ -1,13 +1,13 @@
-package com.example.formalemail;
+package com.formalizer.jarapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FormalEmailApplication {
+public class EmailFormalizerJarApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FormalEmailApplication.class, args);
+		SpringApplication.run(EmailFormalizerJarApplication.class, args);
 	}
 
 }

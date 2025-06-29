@@ -5,15 +5,15 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.2</version>
+		<version>3.2.2</version> <!-- Or latest stable Spring Boot 3.x version -->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>formal-email</artifactId>
+	<groupId>com.formalizer</groupId>
+	<artifactId>email-formalizer-jar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>formal-email</name>
-	<description>Demo project for Spring Boot</description>
+	<packaging>jar</packaging> <!-- Changed to JAR -->
+	<name>email-formalizer-jar</name>
+	<description>Spring Boot project to formalize and send emails (JAR)</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -26,12 +26,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
+		<!-- Test Dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -42,25 +42,19 @@
 		<dependency>
 			<groupId>org.languagetool</groupId>
 			<artifactId>languagetool-core</artifactId>
-			<version>6.3</version>
+			<version>6.3</version> <!-- Or latest stable -->
 		</dependency>
 		<dependency>
 			<groupId>org.languagetool</groupId>
 			<artifactId>language-en</artifactId> <!-- English language support -->
-			<version>6.3</version>
+			<version>6.3</version> <!-- Must match languagetool-core version -->
 		</dependency>
 
-		<!-- Thymeleaf -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-
-		<!-- Bootstrap via WebJars -->
+		<!-- Bootstrap and WebJars -->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>5.3.2</version> <!-- Use a recent version of Bootstrap 5 -->
+			<version>5.3.2</version> <!-- Or latest stable Bootstrap 5.x -->
 		</dependency>
 		<dependency>
             <groupId>org.webjars</groupId>
