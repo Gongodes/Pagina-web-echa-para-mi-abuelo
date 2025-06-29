@@ -1,0 +1,36 @@
+/target/
+/.mvn/
+/mvnw
+/mvnw.cmd
+HELP.md
+.idea
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings
+bin/
+*.log
+*.tmp
+*.jar
+*.war
+*.ear
+dist/
+build/
+# Specific to Spring Boot
+/spring-boot-devtools/
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.iws
+# Eclipse specific files
+.classpath
+.project
+.settings/
+# NetBeans specific files
+nbproject/
+build/
+dist/
+# VSCode specific files
+.vscode/
