@@ -37,6 +37,35 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- LanguageTool for text formalization -->
+		<dependency>
+			<groupId>org.languagetool</groupId>
+			<artifactId>languagetool-core</artifactId>
+			<version>6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.languagetool</groupId>
+			<artifactId>language-en</artifactId> <!-- English language support -->
+			<version>6.3</version>
+		</dependency>
+
+		<!-- Thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Bootstrap via WebJars -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>5.3.2</version> <!-- Use a recent version of Bootstrap 5 -->
+		</dependency>
+		<dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>

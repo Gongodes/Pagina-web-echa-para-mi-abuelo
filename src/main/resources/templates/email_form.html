@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formal Email Transformer</title>
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 4.5rem; /* Adjust if using a fixed navbar */
+        }
+        .container {
+            max-width: 720px;
+        }
+        .alert-fixed-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050; /* Ensure it's above other content */
+            margin: 1rem; /* Add some margin */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Email Formalizer</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="py-5 text-center">
+            <h2>Transform Your Email</h2>
+            <p class="lead">Enter your informal email content below. We'll help you make it more formal and then send it to the configured recipient.</p>
+        </div>
+
+        <!-- Message Area -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show alert-fixed-top" role="alert">
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show alert-fixed-top" role="alert">
+            <span th:text="${errorMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+
+        <form th:action="@{/ui/email/send}" method="post">
+            <div class="mb-3">
+                <label for="emailContent" class="form-label">Email Content:</label>
+                <textarea class.="form-control" id="emailContent" name="emailContent" rows="10" required th:text="${lastContent} ?: ''"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Transform and Send</button>
+        </form>
+    </main>
+
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
